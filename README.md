@@ -1,0 +1,1 @@
+![banner](real-time-forum-image.jpg)

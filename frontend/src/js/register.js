@@ -8,26 +8,7 @@ export class RegisterForm {
     renderForm(parent, containerId) {
         const registerForm = document.createElement("div");
         registerForm.id = containerId;
-        registerForm.innerHTML = `
-            <h2>Register</h2>
-            <form id="registerForm" action="/api/register" method="post">
-                <label for="nickname">Nickname:</label>
-                <input type="text" id="nickname" name="nickname" required><br>
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="age" required><br>
-                <label for="gender">Gender:</label>
-                <input type="text" id="gender" name="gender" required><br>
-                <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" name="firstName" required><br>
-                <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" name="lastName" required><br>
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" required><br>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required><br>
-                <button type="submit">Register</button>
-            </form>
-        `;
+        registerForm.innerHTML = registerView;
         parent.appendChild(registerForm);
     }
 
@@ -58,3 +39,23 @@ export class RegisterForm {
         });
     }
 }
+
+export const registerView = ` <h2>Register</h2>
+<form id="registerForm" action="/api/register" method="post">
+    <label for="nickname">Nickname:</label>
+    <input type="text" id="nickname" name="nickname" required><br>
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required><br>
+    <label for="gender">Gender:</label>
+    <input type="text" id="gender" name="gender" required><br>
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" required><br>
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" required><br>
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" name="email" required><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+    <button type="submit">Register</button>
+</form>
+`

@@ -1,9 +1,8 @@
-import {RegisterForm} from "./js/register.js"
+import {RegisterForm, registerView} from "./js/register.js"
 
-const routes = {
-    "/": "",
-
-}
+const routes = [
+    {path: "/auth", view: registerView}
+]
 
 console.log("hello there");
 let app = document.querySelector(".app");
@@ -11,4 +10,3 @@ let app = document.querySelector(".app");
 if (app) {
     let register = new RegisterForm("register-container", app);
 }
-console.log(window.location.pathname);

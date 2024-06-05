@@ -1,8 +1,8 @@
-// register.js
 export class RegisterForm {
     constructor(containerId, parent) {
         this.containerId = containerId;
         this.renderForm(parent, this.containerId);
+        this.setupFormSubmission();
     }
 
     renderForm(parent, containerId) {
@@ -10,7 +10,7 @@ export class RegisterForm {
         registerForm.id = containerId;
         registerForm.innerHTML = `
             <h2>Register</h2>
-            <form id="registerForm" action="/register" method="post">
+            <form id="registerForm" action="/api/register" method="post">
                 <label for="nickname">Nickname:</label>
                 <input type="text" id="nickname" name="nickname" required><br>
                 <label for="age">Age:</label>
@@ -50,19 +50,11 @@ export class RegisterForm {
                 if (response.ok) {
                     console.log("Registration successful");
                 } else {
-                    console.error("Registration failed");
+                    console.error("Registration failed", await response.text());
                 }
             } catch (error) {
                 console.error("Error:", error);
             }
-        });
-    }
-
-    activateSubmission() {
-        const activateButton = document.getElementById("activateSubmit");
-        activateButton.addEventListener("click", () => {
-            this.setupFormSubmission();
-            activateButton.disabled = true; // Disable the button to prevent multiple activations
         });
     }
 }

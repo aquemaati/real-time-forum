@@ -1,9 +1,20 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
+
+type RegisterData struct {
+	Nickname  string `json:"nickname"`
+	Age       string `json:"age"`
+	Gender    string `json:"gender"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+	Email     string `json:"email"`
+	Password  string `json:"password"`
+}
 
 func Register() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -13,28 +24,23 @@ func Register() http.Handler {
 			return
 		}
 
-		// Parse the form data
-		err := r.ParseForm()
+		var data RegisterData
+		err := json.NewDecoder(r.Body).Decode(&data)
 		if err != nil {
-			http.Error(w, "Unable to parse form data", http.StatusBadRequest)
+			http.Error(w, "Unable to parse JSON data", http.StatusBadRequest)
 			return
 		}
 
-		// Retrieve form values
-		nickname := r.FormValue("nickname")
-		age := r.FormValue("age")
-		gender := r.FormValue("gender")
-		firstName := r.FormValue("firstName")
-		lastName := r.FormValue("lastName")
-		email := r.FormValue("email")
-		password := r.FormValue("password")
+		fmt.Println(data.Nickname)
+		fmt.Println(data.Age)
+		fmt.Println(data.Gender)
+		fmt.Println(data.FirstName)
+		fmt.Println(data.LastName)
+		fmt.Println(data.Email)
+		fmt.Println(data.Password)
 
-		fmt.Println(nickname)
-		fmt.Println(age)
-		fmt.Println(gender)
-		fmt.Println(firstName)
-		fmt.Println(lastName)
-		fmt.Println(email)
-		fmt.Println(password)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(map[string]string{"message": "Registration successful"})
 	})
 }

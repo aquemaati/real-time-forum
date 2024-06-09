@@ -1,0 +1,3 @@
+package modals
+
+const DbFilePathEnv = ""

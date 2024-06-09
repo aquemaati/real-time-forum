@@ -3,9 +3,9 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	"forum/backend/jsonfiles"
-	"forum/backend/modals"
 	"net/http"
+	"real-time-backend/backend/jsonfiles"
+	"real-time-backend/backend/modals"
 
 	"github.com/gorilla/mux"
 )

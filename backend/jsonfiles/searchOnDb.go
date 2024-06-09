@@ -1,8 +1,8 @@
 package jsonfiles
 
 import (
-	"forum/backend/database"
-	"forum/backend/modals"
+	"real-time-backend/backend/database"
+	"real-time-backend/backend/modals"
 )
 
 // Check on DB the Users table to send at handler

@@ -27,3 +27,11 @@ type Post struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 }
+
+type Comments struct {
+	Id      string `json:"id"`
+	PostId  string `json:"postid"`
+	Userid  string `json:"userid"`
+	Date    string `json:"date"`
+	Content string `json:"content"`
+}

@@ -14,7 +14,8 @@ func createTableUsers(db *sql.DB) error {
         lastname TEXT,
         email TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
-        created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+		image TEXT NOT NULL DEFAULT 'backend/database/img/img.png'
     );
     `
 	_, err := db.Exec(table)

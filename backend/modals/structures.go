@@ -11,6 +11,7 @@ type UserRegistration struct {
 	Email     string `json:"email"`
 	Password  string `json:"password"`
 	Date      string `json:"date"`
+	Img       string `json:"image"`
 }
 
 type Categories struct {

@@ -9,7 +9,7 @@ import (
 func GetUserTable() ([]modals.UserRegistration, error) {
 	executor := func(rows *sql.Rows) (interface{}, error) {
 		var user modals.UserRegistration
-		err := rows.Scan(&user.Id, &user.Nickname, &user.Age, &user.Gender, &user.Firstname, &user.Lastname, &user.Email, &user.Password, &user.Date)
+		err := rows.Scan(&user.Id, &user.Nickname, &user.Age, &user.Gender, &user.Firstname, &user.Lastname, &user.Email, &user.Password, &user.Date, &user.Img)
 		return user, err
 	}
 	results, err := database.FetchDb("SELECT * FROM Users", executor)

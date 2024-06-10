@@ -54,8 +54,8 @@ func InitMainDB() {
 	defer cancel()
 
 	// Insert a test user
-	_, err = db.ExecContext(ctx, "INSERT OR IGNORE INTO Users (nickname, age, gender, firstname, lastname, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)",
-		"TEST", 18, "male", "firstname", "lastname", "test@test.test", "qwerty")
+	_, err = db.ExecContext(ctx, "INSERT OR IGNORE INTO Users (id, nickname, age, gender, firstname, lastname, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+		"NOT NULL", "TEST", 18, "male", "firstname", "lastname", "test@test.test", "qwerty")
 	if err != nil {
 		log.Fatalf("Failed to insert test user: %v", err)
 	}
@@ -67,9 +67,9 @@ func InitMainDB() {
 		log.Fatalf("Failed to insert test post: %v", err)
 	}
 
-	// Insert a test posts
-	_, err = db.ExecContext(ctx, "INSERT OR IGNORE INTO Posts (userId, title, description) VALUES ((SELECT id FROM Users WHERE nickname = ?), ?, ?)",
-		"TEST", "This is a test post", "This is a test description")
+	// Insert a test post
+	_, err = db.ExecContext(ctx, `INSERT OR IGNORE INTO Posts (id, userId, title, description) 
+	VALUES (?, (SELECT id FROM Users WHERE nickname = ?), ?, ?)`, "1", "TEST", "This is a test post", "This is a test description")
 	if err != nil {
 		log.Fatalf("Failed to insert test post: %v", err)
 	}

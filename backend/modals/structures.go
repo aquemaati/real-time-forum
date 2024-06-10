@@ -2,7 +2,7 @@ package modals
 
 // Json type
 type UserRegistration struct {
-	Id        int    `json:"id"`
+	Id        string `json:"id"`
 	Nickname  string `json:"nickname"`
 	Age       int    `json:"age"`
 	Gender    string `json:"gender"`
@@ -21,8 +21,8 @@ type Categories struct {
 }
 
 type Post struct {
-	Id          int    `json:"id"`
-	UserId      int    `json:"userid"`
+	Id          string `json:"id"`
+	UserId      string `json:"userid"`
 	Creation    string `json:"created"`
 	Title       string `json:"title"`
 	Description string `json:"description"`

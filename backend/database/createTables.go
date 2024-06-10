@@ -1,12 +1,15 @@
 package database
 
-import "database/sql"
+import (
+	"database/sql"
+	"fmt"
+)
 
 // createTableUsers creates the Users table
 func createTableUsers(db *sql.DB) error {
 	table := `
     CREATE TABLE IF NOT EXISTS Users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT NOT NULL,
         nickname TEXT NOT NULL UNIQUE,
         age INTEGER,
         gender TEXT,
@@ -39,13 +42,14 @@ func createTableCategories(db *sql.DB) error {
 func createTablePosts(db *sql.DB) error {
 	table := `
 	CREATE TABLE IF NOT EXISTS Posts (
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		userId INTEGER,
+		id TEXT NOT NULL,
+		userId TEXT NOT NULL,
 		created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 		title TEXT NOT NULL,
 		description TEXT NOT NULL,
 		FOREIGN KEY(userId) REFERENCES Users(id)
 	);`
+	fmt.Println("HERE")
 	_, err := db.Exec(table)
 	return err
 }

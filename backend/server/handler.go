@@ -18,6 +18,11 @@ func LoadServer() {
 	router.HandleFunc("/api/users", userHandler).Methods("GET")
 	router.HandleFunc("/api/posts", postHandler).Methods("GET")
 	router.HandleFunc("/api/categories", categorieHandler).Methods("GET")
+	router.HandleFunc("/api/comments", commentsHandler).Methods("GET")
+	router.HandleFunc("/api/likescomments", LikesCommentsHandler).Methods("GET")
+	router.HandleFunc("/api/postscategories", PostscategoriesHandler).Methods("GET")
+	router.HandleFunc("/api/postslikes", PostsLikesHandler).Methods("GET")
+	router.HandleFunc("/api/session", SessionHandler).Methods("GET")
 	router.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
 		ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
 		defer cancel()

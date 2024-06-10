@@ -35,3 +35,33 @@ type Comments struct {
 	Date    string `json:"date"`
 	Content string `json:"content"`
 }
+
+type LikesComments struct {
+	Id         int    `json:"id"`
+	Userid     string `json:"userid"`
+	CommentsId string `json:"comentsid"`
+	Date       string `json:"date"`
+	Sentiments string `json:"sentiments"`
+}
+
+type Postscategories struct {
+	Postid     string `json:"postid"`
+	Categoryid string `json:"categoryid"`
+}
+
+type PostsLikes struct {
+	Id        int    `json:"id"`
+	Userid    string `json:"userid"`
+	Postid    string `json:"postid"`
+	Date      string `json:"date"`
+	Sentiment string `json:"sentiment"`
+}
+
+type Session struct {
+	Sessionid  string `json:"sessionnid"`
+	Userid     string `json:"userid"`
+	Jwt        string `json:"jwt"`
+	Expiresat  string `json:"expiresat"`
+	Createdat  string `json:"createdat"`
+	Lastaccess string `json:"lastaccess"`
+}

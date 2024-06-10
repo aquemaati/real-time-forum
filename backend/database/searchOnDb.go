@@ -43,3 +43,68 @@ func GetPostTable() ([]modals.Post, error) {
 	}
 	return ConvertResults[modals.Post](results)
 }
+
+func GetCommentsTable() ([]modals.Comments, error) {
+	executor := func(rows *sql.Rows) (interface{}, error) {
+		var comments modals.Comments
+		err := rows.Scan(&comments.Id, &comments.PostId, &comments.Userid, &comments.Date, &comments.Content)
+		return comments, err
+	}
+	results, err := FetchDb("SELECT * FROM Comments", executor)
+	if err != nil {
+		return nil, err
+	}
+	return ConvertResults[modals.Comments](results)
+}
+
+func GetLikesCommentsTable() ([]modals.LikesComments, error) {
+	executor := func(rows *sql.Rows) (interface{}, error) {
+		var likesComments modals.LikesComments
+		err := rows.Scan(&likesComments.Id, &likesComments.Userid, &likesComments.CommentsId, &likesComments.Date, &likesComments.Sentiments)
+		return likesComments, err
+	}
+	results, err := FetchDb("SELECT * FROM LikesComments", executor)
+	if err != nil {
+		return nil, err
+	}
+	return ConvertResults[modals.LikesComments](results)
+}
+
+func GetPostCategoriesTable() ([]modals.Postscategories, error) {
+	executor := func(rows *sql.Rows) (interface{}, error) {
+		var PostCategories modals.Postscategories
+		err := rows.Scan(&PostCategories.Postid, &PostCategories.Categoryid)
+		return PostCategories, err
+	}
+	results, err := FetchDb("SELECT * FROM PostCategories", executor)
+	if err != nil {
+		return nil, err
+	}
+	return ConvertResults[modals.Postscategories](results)
+}
+
+func GetPostLikesTable() ([]modals.PostsLikes, error) {
+	executor := func(rows *sql.Rows) (interface{}, error) {
+		var PostLikes modals.PostsLikes
+		err := rows.Scan(&PostLikes.Id, &PostLikes.Userid, &PostLikes.Postid, &PostLikes.Date, &PostLikes.Sentiment)
+		return PostLikes, err
+	}
+	results, err := FetchDb("SELECT * FROM PostsLike", executor)
+	if err != nil {
+		return nil, err
+	}
+	return ConvertResults[modals.PostsLikes](results)
+}
+
+func GetSessionTable() ([]modals.Session, error) {
+	executor := func(rows *sql.Rows) (interface{}, error) {
+		var Session modals.Session
+		err := rows.Scan(&Session.Sessionid, &Session.Userid, &Session.Jwt, &Session.Expiresat, &Session.Createdat, &Session.Lastaccess)
+		return Session, err
+	}
+	results, err := FetchDb("SELECT * FROM Sessions", executor)
+	if err != nil {
+		return nil, err
+	}
+	return ConvertResults[modals.Session](results)
+}

@@ -39,56 +39,35 @@ func InitMainDB() {
 	}
 	//defer db.Close()
 
-	if err := createTableUsers(Db); err != nil {
+	if err = createTableUsers(Db); err != nil {
 		log.Fatalf("Failed to create Users table: %v", err)
 	}
 
-	if err := createTableCategories(Db); err != nil {
+	if err = createTableCategories(Db); err != nil {
 		log.Fatalf("Failed to create Categories table : %v", err)
 	}
 
-	if err := createTablePosts(Db); err != nil {
+	if err = createTablePosts(Db); err != nil {
 		log.Fatalf("Failed to create Posts table: %v", err)
 	}
 
-	/*
-	   	http.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
-	   		ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
-	   		defer cancel()
+	if err = createTableComments(Db); err != nil {
+		log.Fatalf("Failed to create Posts table: %v", err)
+	}
 
-	   		if r.Method == http.MethodPost {
-	   			nickname := r.FormValue("nickname")
-	   			age := r.FormValue("age")
-	   			gender := r.FormValue("gender")
-	   			firstname := r.FormValue("firstname")
-	   			lastname := r.FormValue("lastname")
-	   			email := r.FormValue("email")
-	   			password := r.FormValue("password")
+	if err = createTableLikesComments(Db); err != nil {
+		log.Fatal("Failed to create LikesComments table")
+	}
 
-	   			err := contexte.RegisterUser(ctx, db, nickname, age, gender, firstname, lastname, email, password)
-	   			if err != nil {
-	   				http.Error(w, err.Error(), http.StatusInternalServerError)
-	   				return
-	   			}
+	if err = createTablePostsCategories(Db); err != nil {
+		log.Fatal("Failed to create PostCategories table")
+	}
 
-	   			fmt.Fprintf(w, "User %s successfully registered", nickname)
-	   		} else {
-	   			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
-	   		}
-	   	})
-
-	   	// Insert a test categories
-	   , err = db.ExecContext(ctx, "INSERT OR IGNORE INTO Categories (name, description) VALUES (?, ?)",
-	   		"This is a categorie", "This is a test description")
-	   	if err != nil {
-	   		log.Fatalf("Failed to insert test post: %v", err)
-	   	}
-
-	   	// Insert a test post
-	   	_, err = db.ExecContext(ctx, `INSERT OR IGNORE INTO Posts (id, userId, title, description)
-	   	VALUES (?, (SELECT id FROM Users WHERE nickname = ?), ?, ?)`, "1", "TEST", "This is a test post", "This is a test description")
-	   	if err != nil {
-	   		log.Fatalf("Failed to insert test post: %v", err)
-	   	}*/
+	if err = createTablePostsLikes(Db); err != nil {
+		log.Fatal("Failed to create PostLikes table")
+	}
+	if err = createTableSession(Db); err != nil {
+		log.Fatal("Failed HERE to create Session table")
+	}
 	log.Println("Database initialized, test user and test post inserted successfully")
 }

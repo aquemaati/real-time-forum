@@ -2,7 +2,6 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
 )
 
 // createTableUsers creates the Users table
@@ -49,7 +48,81 @@ func createTablePosts(db *sql.DB) error {
 		description TEXT NOT NULL,
 		FOREIGN KEY(userId) REFERENCES Users(id)
 	);`
-	fmt.Println(db)
+	_, err := db.Exec(table)
+	return err
+}
+
+func createTableComments(db *sql.DB) error {
+	table := `
+	CREATE TABLE IF NOT EXISTS "Comments" (
+		id TEXT PRIMARY KEY, 
+		postId TEXT NOT NULL,
+		userId TEXT NOT NULL,
+		date TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+		content TEXT NOT NULL,
+		FOREIGN KEY (postId) REFERENCES Posts(id),
+		FOREIGN KEY (userId) REFERENCES Users(id)
+	);`
+	_, err := db.Exec(table)
+	return err
+}
+
+func createTableLikesComments(db *sql.DB) error {
+	table := `
+	CREATE TABLE IF NOT EXISTS "LikesComments" (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		userId TEXT NOT NULL,
+		commentsId TEXT NOT NULL,
+		date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		sentiment TEXT NOT NULL CHECK (sentiment IN ('love', 'hate')),
+		FOREIGN KEY (commentsId) REFERENCES Comments(id),
+		FOREIGN KEY (userId) REFERENCES Users(id),
+		UNIQUE (userId, commentsId)
+	);`
+	_, err := db.Exec(table)
+	return err
+}
+
+func createTablePostsCategories(db *sql.DB) error {
+	table := `
+	CREATE TABLE IF NOT EXISTS "PostCategories" (
+		postId TEXT,
+		categoryId INTEGER,
+		PRIMARY KEY (postId, categoryId),
+		FOREIGN KEY (postId) REFERENCES Posts(id),
+		FOREIGN KEY (categoryId) REFERENCES Categories(id)
+	);`
+	_, err := db.Exec(table)
+	return err
+}
+
+func createTablePostsLikes(db *sql.DB) error {
+	table := `
+	CREATE TABLE IF NOT EXISTS "PostsLike" (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		userId TEXT NOT NULL,
+		postId TEXT NOT NULL,
+		date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		sentiment TEXT NOT NULL CHECK (sentiment IN ('love', 'hate')),
+		FOREIGN KEY (postId) REFERENCES Posts(id),
+		FOREIGN KEY (userId) REFERENCES Users(id),
+		UNIQUE (userId, postId)
+	);`
+	_, err := db.Exec(table)
+	return err
+}
+
+func createTableSession(db *sql.DB) error {
+	table := `
+	CREATE TABLE IF NOT EXISTS "Sessions" (
+		SessionID TEXT PRIMARY KEY,
+		UserID TEXT,
+		JWT TEXT,
+		ExpiresAt DATETIME,
+		CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+		LastAccessed DATETIME DEFAULT CURRENT_TIMESTAMP,
+		FOREIGN KEY(UserID) REFERENCES Users(id)
+	)`
 	_, err := db.Exec(table)
 	return err
 }

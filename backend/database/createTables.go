@@ -49,7 +49,7 @@ func createTablePosts(db *sql.DB) error {
 		description TEXT NOT NULL,
 		FOREIGN KEY(userId) REFERENCES Users(id)
 	);`
-	fmt.Println("HERE")
+	fmt.Println(db)
 	_, err := db.Exec(table)
 	return err
 }

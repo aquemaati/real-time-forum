@@ -1,8 +1,7 @@
-package jsonfiles
+package database
 
 import (
 	"database/sql"
-	"real-time-backend/backend/database"
 	"real-time-backend/backend/modals"
 )
 
@@ -12,11 +11,11 @@ func GetUserTable() ([]modals.UserRegistration, error) {
 		err := rows.Scan(&user.Id, &user.Nickname, &user.Age, &user.Gender, &user.Firstname, &user.Lastname, &user.Email, &user.Password, &user.Date, &user.Img)
 		return user, err
 	}
-	results, err := database.FetchDb("SELECT * FROM Users", executor)
+	results, err := FetchDb("SELECT * FROM Users", executor)
 	if err != nil {
 		return nil, err
 	}
-	return database.ConvertResults[modals.UserRegistration](results)
+	return ConvertResults[modals.UserRegistration](results)
 }
 
 func GetCategoriesTable() ([]modals.Categories, error) {
@@ -25,11 +24,11 @@ func GetCategoriesTable() ([]modals.Categories, error) {
 		err := rows.Scan(&categorie.Id, &categorie.Name, &categorie.Description)
 		return categorie, err
 	}
-	results, err := database.FetchDb("SELECT * FROM Categories", executor)
+	results, err := FetchDb("SELECT * FROM Categories", executor)
 	if err != nil {
 		return nil, err
 	}
-	return database.ConvertResults[modals.Categories](results)
+	return ConvertResults[modals.Categories](results)
 }
 
 func GetPostTable() ([]modals.Post, error) {
@@ -38,9 +37,9 @@ func GetPostTable() ([]modals.Post, error) {
 		err := rows.Scan(&post.Id, &post.UserId, &post.Creation, &post.Title, &post.Description)
 		return post, err
 	}
-	results, err := database.FetchDb("SELECT * FROM Posts", executor)
+	results, err := FetchDb("SELECT * FROM Posts", executor)
 	if err != nil {
 		return nil, err
 	}
-	return database.ConvertResults[modals.Post](results)
+	return ConvertResults[modals.Post](results)
 }

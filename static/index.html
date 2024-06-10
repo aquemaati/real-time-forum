@@ -3,16 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPA without Framework</title>
+    <title>User Registration</title>
 </head>
 <body>
-    <nav>
-        <a href="#home" onclick="navigate(event, 'home')">Home</a>
-        <a href="#about" onclick="navigate(event, 'about')">About</a>
-    </nav>
-    <div id="content">
-        <!-- Content will be injected here -->
-    </div>
-    <script src="/frontend/app.js"></script>
+    <h1>User Registration</h1>
+    <form action="/register" method="post">
+        <label for="nickname">Nickname:</label>
+        <input type="text" id="nickname" name="nickname" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age"><br><br>
+
+        <label for="gender">Gender:</label>
+        <input type="text" id="gender" name="gender"><br><br>
+
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="firstname"><br><br>
+
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="lastname"><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <button type="submit">Register</button>
+    </form>
 </body>
 </html>

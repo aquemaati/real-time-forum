@@ -1,13 +1,15 @@
 package database
 
 import (
+	"database/sql"
 	"fmt"
-	"real-time-backend/backend/modals"
 
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func FetchDb(query string, executor modals.QueryExecutor) ([]interface{}, error) {
+type QueryExecutor func(*sql.Rows) (interface{}, error)
+
+func FetchDb(query string, executor QueryExecutor) ([]interface{}, error) {
 	db, err := InitDB()
 	if err != nil {
 		return nil, err
